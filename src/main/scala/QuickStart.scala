@@ -1,6 +1,6 @@
 import com.couchbase.client.java.document.JsonDocument
 import com.couchbase.client.java.view.ViewQuery
-import com.couchbase.spark._
+import com.couchbase.spark.{toRDDFunctions, _}
 import org.apache.spark.{SparkConf, SparkContext}
 
 object QuickStart {
@@ -19,7 +19,11 @@ object QuickStart {
 
     // Calling a View
     println("Query by View")
-    sc.couchbaseView(ViewQuery.from("airline","airline_view").limit(10)).collect().foreach(println)
+    sc.couchbaseView(ViewQuery.from("airline","airline_view").limit(10))
+      .map(_.id)
+      .couchbaseGet[JsonDocument]()
+      .collect()
+      .foreach(println)
 
   }
 }
