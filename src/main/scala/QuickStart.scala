@@ -10,7 +10,12 @@ object QuickStart {
     val cfg = new SparkConf()
       .setAppName("scala-spark-couchbase")
       .setMaster("local[*]")
-      .set("com.couchbase.bucket.travel-sample", "")
+      .set("com.couchbase.bucket.travel-sample", "") // bucketname, password
+      //.set("com.couchbase.nodes", "127.0.0.1")
+      //.set("com.couchbase.bucket.my_bucket", "password")
+
+
+    
 
     // Generate The Context
     val sc = new SparkContext(cfg)
